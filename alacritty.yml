@@ -1,23 +1,17 @@
-shell:
-  program: 'C:\Program Files\PowerShell\7\pwsh.exe'
-
-
-working_directory: 'C:\Users\Gallo'
-
 font:
   normal:
-    family: Iosevka 
+    family: Iosevka Term
     style: Regular
   bold:
-    family: Iosevka
+    family: Iosevka Term
     style: Bold
   italic:
-    family: Iosevka
+    family: Iosevka Term
     style: Italic
   bold_italic:
-    family: Iosevka
+    family: Iosevka Term
     style: Bold Italic
-  size: 11.0
+  size: 12.0
   offset:
     x: 0
     y: 0

@@ -1,91 +1,162 @@
-syntax on
+" Gallo's VIM/NeoVIM config v.0.0.2
 
-set number relativenumber
+" general-config
+" Do not try to use vi compatible things
+set nocompatible
+
+" Display where we are in the current file
+" set ruler
+
+" avoid sound warnings
+set noerrorbells
+
+" tab-stuff
+" tab should be 4 characters
+set tabstop=4 
+set softtabstop=4
+set shiftwidth=4
+
+" change tabs to spaces 
+set expandtab
+
+" auto indent
+set smartindent
+
+" Always show n lines while scrolling vertically
+set scrolloff=5
+
+" Show at least 5 characters while scrolling off screen horizontally
+set sidescrolloff=5
+
+" Basic syntax highlighting
+syntax enable
+filetype plugin on
+
+" Leader key <SPACE>
+let mapleader=" "
+
+" Colorscheme from the defaults
+" colorscheme murphy
+
+" Show the current line number
+set number
+
+" Show relative line number
+" set relativenumber
+
+" Allow y/p from system clipboard
 set clipboard+=unnamedplus
 
-set nohlsearch
-set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab
-set smartindent
-set nowrap
-set smartcase
-set noswapfile
-set nobackup
-set undodir="C:\Users\Gallo\AppData\Local\nvim\undodir"
-set undofile
+" Highlight current line
+" set cursorline
+
+" Incremental search
 set incsearch
 
-" Font configuration
-set guifont=Iosevka:h14
+" Highlight results of search
+set hlsearch
 
-" Allow changing buffers without saving files.
+" remove the highlighting once i finish
+nnoremap <Leader>s :nohlsearch<CR>
+
+" Do not close buffers, hide them
 set hidden
 
-" Search in all the folder / project
+" Do not make tmp files in directory, 
+set noswapfile
+
+" only create undofiles in the specified undodir
+set nobackup
+set undodir=~/.config/nvim/undodir
+set undofile
+
+" from <How to Do 90% of What Plugins Do (With Just Vim)> [https://www.youtube.com/watch?v=XA2WjJbmmoM]
+
+" Finding files
+" Search into subfolders
+" Provides tab-completion for file-related commands
 set path+=**
 
-" Completion in status bar for commands
-set wildmenu
-
-" Ignore any node_modules
+" Ignore certain files or folders
 set wildignore+=**/node_modules/**
 
-" coc config 
-set cmdheight=2
-set updatetime=300
-set signcolumn=yes
+" display all matching giles when tabl complete
+set wildmenu
 
-" Python paths
-let g:python_host_prog = 'C:\Python27\python.exe'
-let g:python3_host_prog = 'C:\Python38\python.exe'
-
-" Lightline plugin colorscheme
-let g:lightline = { 'colorscheme': 'challenger_deep' }
-
-call plug#begin()
-" Basic & sensible configurations
-Plug 'tpope/vim-sensible'
-" Colorscheme
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-" Status line plugin
+" vim-plug-section
+call plug#begin('~/.config/nvim/plugged')
+" Comment/Uncomment
+Plug 'tpope/vim-commentary'
+" Using vim for databases
+Plug 'tpope/vim-dadbod'
+" Conquer Completion
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" kewl Status line
 Plug 'itchyny/lightline.vim'
-" Syntax highlighting
-Plug 'sheerun/vim-polyglot'
-" Code completion
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'jremmen/vim-ripgrep'
-Plug 'tpope/vim-fugitive'
+" undos
 Plug 'mbbill/undotree'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+" Git integration
+Plug 'tpope/vim-fugitive'
+" nvim theme
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+
 call plug#end()
 
-" Colorscheme options
+" plugin-config-section
+
+" theme-config
 if has('nvim') || has('termguicolors')
-	set termguicolors
+    set termguicolors
 endif
 
 colorscheme challenger_deep
 
-set background=dark
+" Plugin: lightline
+set noshowmode
+let g:lightline = {'colorscheme': 'challenger_deep'}
 
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
+" Plugin: coc
+" Give more space for displaying messages.
+set cmdheight=2
 
-" Use Tab for trigger completion with characters ahead and navigate.
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Show sign columns to allow highlight of errors
+set signcolumn=yes
+
+" Use tab to trigger completion with characters ahead and navigate.
 inoremap <silent><expr> <TAB>
-	\ pumvisible() ? "\<C-n>" :
-	\ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
-	let col = col('.')[col - 1] =~# '\s'
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <C-space> to trigger completion
+" Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -93,28 +164,31 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-let mapleader = " "
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-let g:netrw_browse_split = 2
-let g:vrfr_rg = 'true'
-let g:netrw_banner = 0
-let g:netrw_winsize = 25
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" map-section
+
+" windows
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-nnoremap <leader>u :UndotreeShow<CR>
-nnoremap <leader>pv :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
-nnoremap <Leader>ps :Rg<SPACE>
-nnoremap <C-p> :GFiles<CR>
-nnoremap <Leader>pf :GFiles<CR>
-nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>+ :vertical resize +5<CR>
-nnoremap <Leader>- :vertical resize -5<CR>
-nnoremap <Leader>ee oif (err != nil) {<CR>log.Fatalf("%+v\n", err)<CR>}<CR><esc>kkI<esc>
-vnoremap J :m '>+1<CR>gv=gv
-vnoremap K :m '<-2<CR>gv=gv
-nnoremap <leader>vwm :colorscheme gruvbox<bar>:set background=dark<CR>
-vnoremap X "_d
-
