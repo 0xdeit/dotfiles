@@ -35,6 +35,19 @@ alias bashrc="nvim ~/.bashrc && source ~/.bashrc"
 alias swayc="nvim ~/.config/sway/config"
 alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml"
 
+function send_to_dotfiles_scm(){
+    cp $1 ~/git/dotfiles
+}
+
+function update_bashrc(){
+    send_to_dotfiles_scm ~/.bashrc
+}
+
+function update_vimrc(){
+    send_to_dotfiles_scm ~/.config/nvim/init.vim
+}
+
+
 # vcpkg is a C\C++ package manager
 alias vcpkg="~/git/vcpkg/vcpkg"
 source /home/gallo/git/vcpkg/scripts/vcpkg_completion.bash
@@ -47,17 +60,5 @@ alias gpsh="git push"
 alias gpll="git pull"
 alias gs="git status"
 alias gd="git diff HEAD"
-
-function send_to_dotfiles_scm(){
-    cp $1 ~/git/dotfiles
-}
-
-function update_bashrc(){
-    send_to_dotfiles_scm ~/.bashrc
-}
-
-function update_vimrc(){
-    send_to_dotfiles_scm ~/.config/nvim/init.vim
-}
 
 source ~/.profile
