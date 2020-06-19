@@ -99,7 +99,7 @@ Plug 'mbbill/undotree'
 Plug 'tpope/vim-fugitive'
 " nvim theme
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
-
+Plug 'morhetz/gruvbox'
 call plug#end()
 
 " plugin-config-section
@@ -109,11 +109,12 @@ if has('nvim') || has('termguicolors')
     set termguicolors
 endif
 
-colorscheme challenger_deep
+"colorscheme challenger_deep
+colorscheme gruvbox
 
 " Plugin: lightline
 set noshowmode
-let g:lightline = {'colorscheme': 'challenger_deep'}
+let g:lightline = {'colorscheme': 'gruvbox'}
 
 " Plugin: coc
 " Give more space for displaying messages.
