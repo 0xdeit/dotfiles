@@ -48,7 +48,7 @@ set number
 set clipboard+=unnamedplus
 
 " Highlight current line
-" set cursorline
+ set cursorline
 
 " Incremental search
 set incsearch
@@ -56,13 +56,14 @@ set incsearch
 " Highlight results of search
 set hlsearch
 
-" remove the highlighting once i finish
+" remove the highlighting once its finished
 nnoremap <Leader>s :nohlsearch<CR>
 
 " Do not close buffers, hide them
 set hidden
 
-" Do not make tmp files in directory, 
+
+" Do not make tmp files in working directory, 
 set noswapfile
 
 " only create undofiles in the specified undodir
@@ -80,45 +81,51 @@ set path+=**
 " Ignore certain files or folders
 set wildignore+=**/node_modules/**
 
-" display all matching giles when tabl complete
+" display all matching files when tab complete
 set wildmenu
 
 " vim-plug-section
 call plug#begin('~/.config/nvim/plugged')
 " Comment/Uncomment
+" gc comment line
 Plug 'tpope/vim-commentary'
 " Using vim for databases
 Plug 'tpope/vim-dadbod'
 " Conquer Completion
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " kewl Status line
 Plug 'itchyny/lightline.vim'
 " undos
+" TODO: Configuration and mappings
 Plug 'mbbill/undotree'
 " Git integration
+" TODO: Configuration and mappings
 Plug 'tpope/vim-fugitive'
 " nvim theme
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+" Archived theme: Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'morhetz/gruvbox'
 call plug#end()
 
 " plugin-config-section
 
 " theme-config
+" Show pretty colors heh
 if has('nvim') || has('termguicolors')
     set termguicolors
 endif
 
+" Archived theme
 "colorscheme challenger_deep
 colorscheme gruvbox
 
 " Plugin: lightline
+" Use lightline to show modes, not (n)vim
 set noshowmode
 let g:lightline = {'colorscheme': 'gruvbox'}
 
 " map-section
 
-" windows
+" move through windows/splits?
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
