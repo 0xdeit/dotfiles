@@ -7,6 +7,9 @@ set nocompatible
 " Display where we are in the current file
 " set ruler
 
+" Enable mouse support
+set mouse=a
+
 " avoid sound warnings
 set noerrorbells
 
