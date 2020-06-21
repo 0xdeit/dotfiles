@@ -30,12 +30,6 @@ alias vim="nvim"
 alias v="nvim"
 
 # Configs
-alias vimc="nvim ~/.config/nvim/init.vim"
-alias bashrc="nvim ~/.bashrc && source ~/.bashrc"
-alias swayc="nvim ~/.config/sway/config"
-alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml"
-alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css"
-
 function bashup(){
     echo "Updating bashrc...";
     source ~/.bashrc && echo "Done.";
@@ -67,6 +61,16 @@ function update_swayc(){
 function update_waybarc(){
     send_to_dotfiles_scm ~/.config/waybar;
 }
+
+function update_alacrittyc(){
+    cp ~/.config/alacritty/alacritty.yml $dotfiles_dir/alacritty
+}
+
+alias vimc="nvim ~/.config/nvim/init.vim && update_vimrc"
+alias bashrc="nvim ~/.bashrc && source ~/.bashrc && update_bashrc"
+alias swayc="nvim ~/.config/sway/config && update_swayc"
+alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml && update_alacrittyc"
+alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css && update_waybarc"
 
 function dotfiles(){
     cd $dotfiles_dir && git status;
