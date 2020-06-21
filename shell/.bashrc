@@ -85,6 +85,11 @@ source /home/gallo/git/vcpkg/scripts/vcpkg_completion.bash
 # git
 alias ga="git add"
 alias gaa="git add *"
+
+function gac(){
+    git add $1 && git commit -m "$2";
+}
+
 alias gr="git rm"
 alias gc="git commit -m"
 
