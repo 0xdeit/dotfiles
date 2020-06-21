@@ -12,9 +12,6 @@ then
 fi
 export PATH
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
 # User specific aliases and functions
 
 # user variables
@@ -37,6 +34,12 @@ alias vimc="nvim ~/.config/nvim/init.vim"
 alias bashrc="nvim ~/.bashrc && source ~/.bashrc"
 alias swayc="nvim ~/.config/sway/config"
 alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml"
+alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css"
+
+function bashup(){
+    echo "Updating bashrc...";
+    source ~/.bashrc && echo "Done.";
+}
 
 function send_to_dotfiles_scm(){
     # TODO: Give error if there are more than 1 argument to the function.
@@ -70,8 +73,9 @@ function dotfiles(){
 }
 
 function dotfiles_update(){
+    echo $dotfiles_dir;
     update_bashrc && update_swayc && update_vimrc && update_waybarc;
-    dotfiles;
+    git status $dotfiles_dir;
 }
 
 # vcpkg is a C\C++ package manager
@@ -83,6 +87,11 @@ alias ga="git add"
 alias gaa="git add *"
 alias gr="git rm"
 alias gc="git commit -m"
+
+function gcp(){
+    git commit -m $1 && git push;
+}
+
 alias gpsh="git push"
 alias gpll="git pull"
 alias gs="git status"
