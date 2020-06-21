@@ -54,11 +54,15 @@ function update_bashrc(){
 }
 
 function update_vimrc(){
-    send_to_dotfiles_scm ~/.config/nvim;
+    cp  ~/.config/nvim/init.vim $dotfiles_dir/nvim;
 }
 
 function update_swayc(){
     send_to_dotfiles_scm ~/.config/sway;
+}
+
+function update_waybarc(){
+    send_to_dotfiles_scm ~/.config/waybar;
 }
 
 function dotfiles(){
@@ -66,7 +70,8 @@ function dotfiles(){
 }
 
 function dotfiles_update(){
-    update_bashrc && update_swayc && update_vimrc;
+    update_bashrc && update_swayc && update_vimrc && update_waybarc;
+    dotfiles;
 }
 
 # vcpkg is a C\C++ package manager
