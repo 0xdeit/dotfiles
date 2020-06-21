@@ -1,4 +1,4 @@
-" Gallo's VIM/NeoVIM config v.0.0.2
+" Gallo's VIM/NeoVIM config v.0.0.3
 
 " general-config
 " Do not try to use vi compatible things
@@ -56,15 +56,14 @@ set clipboard+=unnamedplus
 " Incremental search
 set incsearch
 
-" Highlight results of search
-set hlsearch
+" dont highlight results of search
+set nohlsearch
 
 " remove the highlighting once its finished
-nnoremap <Leader>s :nohlsearch<CR>
+" nnoremap <Leader>s :nohlsearch<CR>
 
 " Do not close buffers, hide them
 set hidden
-
 
 " Do not make tmp files in working directory, 
 set noswapfile
@@ -104,12 +103,13 @@ Plug 'mbbill/undotree'
 " Git integration
 " TODO: Configuration and mappings
 Plug 'tpope/vim-fugitive'
+" fzf, don't need hook
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 " nvim theme
 " Archived theme: Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'morhetz/gruvbox'
 call plug#end()
-
-" plugin-config-section
 
 " theme-config
 " Show pretty colors heh
@@ -120,16 +120,65 @@ endif
 " Archived theme
 "colorscheme challenger_deep
 colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+set background=dark
 
+" plugin-config-section
 " Plugin: lightline
 " Use lightline to show modes, not (n)vim
 set noshowmode
 let g:lightline = {'colorscheme': 'gruvbox'}
 
-" map-section
+" Plugin: fzf
+" ripgrep
+if executable('rg')
+    let g:rg_derive_root='true'
+endif
 
+" Plugin: netrw
+let g:netrw_browse_split=2
+let g:vrfr_rg='true'
+let g:netrw_banner=0
+let g:netwr_winsize=25
+
+" Plugin: Conquer of Completion
+" Get extra line in the bottom for displaying messages
+set cmdheight=2
+" update quicker
+set updatetime=50
+" do not pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" map-section
 " move through windows/splits?
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
+
+" undotree
+nnoremap <leader>u :UndotreeShow<CR>
+nnoremap <leader>U :UndotreeHide<CR>
+
+" file explorer
+nnoremap <leader>f :wincmd v<bar> :Ex <bar> :vertical resize 30 <CR>
+
+" fzf explorer 
+nnoremap <leader>F :Files <CR>
+nnoremap <leader>gf :GFiles<CR>
+
+" coc 
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gt <Plug>(coc-type-definition)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>rr <Plug>(coc-rename)
+nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
+nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
+nnoremap <leader>cr :CocRestart
+
+" fugitive 
+nmap <leader>gs :G<CR>
+
