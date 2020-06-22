@@ -13,9 +13,11 @@ fi
 export PATH
 
 # User specific aliases and functions
+PS1_Fallback="$PS1"
+export PS1="\e[0;36m[\u@\h \W]\$\e[m "
 
 # user variables
-dotfiles_dir="$HOME/git/dotfiles"
+dotfiles_dir=~/git/dotfiles
 
 # systems package manager aliases
 alias sys-sch="sudo dnf search"
@@ -84,7 +86,7 @@ alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml && update_alacrittyc"
 alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css && update_waybarc"
 
 function dotfiles(){
-    cd $dotfiles_dir && git status;
+    cd $dotfiles_dir && git status $dotfiles_dir;
 }
 
 function dotfiles_update(){
@@ -92,10 +94,6 @@ function dotfiles_update(){
     update_bashrc && update_swayc && update_vimrc && update_waybarc;
     git status $dotfiles_dir;
 }
-
-# vcpkg is a C\C++ package manager
-alias vcpkg="~/git/vcpkg/vcpkg"
-source /home/gallo/git/vcpkg/scripts/vcpkg_completion.bash
 
 # git
 alias ga="git add"
