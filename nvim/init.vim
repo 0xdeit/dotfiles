@@ -131,7 +131,22 @@ set background=dark
 " Plugin: lightline
 " Use lightline to show modes, not (n)vim
 set noshowmode
-let g:lightline = {'colorscheme': 'gruvbox'}
+"let g:lightline = {'colorscheme': 'gruvbox'}
+
+
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [ [ 'mode', 'paste' ],
+\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+\ },
+\ 'component_function': {
+\   'cocstatus': 'coc#status'
+\ },
+\ }
+
+" Use autocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " Plugin: fzf
 " ripgrep
