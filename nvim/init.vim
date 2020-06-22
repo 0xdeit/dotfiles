@@ -1,4 +1,4 @@
-" Gallo's VIM/NeoVIM config v.0.0.3
+" Gallo's VIM/NeoVIM config v.0.0.5
 
 " general-config
 " Do not try to use vi compatible things
@@ -56,6 +56,10 @@ set clipboard+=unnamedplus
 " Incremental search
 set incsearch
 
+" highlight 80th column
+set colorcolumn=80
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
 " dont highlight results of search
 set nohlsearch
 
@@ -73,7 +77,7 @@ set nobackup
 set undodir=~/.config/nvim/undodir
 set undofile
 
-" from <How to Do 90% of What Plugins Do (With Just Vim)> [https://www.youtube.com/watch?v=XA2WjJbmmoM]
+" <How to Do 90% of What Plugins Do (With Just Vim)> [https://www.youtube.com/watch?v=XA2WjJbmmoM]
 
 " Finding files
 " Search into subfolders
@@ -200,6 +204,23 @@ endif
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
+
+" Add :Prettier command 
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+
+" show documentation in preview window.
+nnoremap <leader>m :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 nmap <leader>gd <Plug>(coc-definition)
 nmap <leader>gt <Plug>(coc-type-definition)
