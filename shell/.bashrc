@@ -14,9 +14,24 @@ export PATH
 
 # User specific aliases and functions
 # colored prompt
+
+# color: cyan
+# bash= \e0;36m
+# tput= tput setaf 6
+
+# standard prompt, but colored
 #export PS1="\e\[0;36m\][\u \W]\$\e\[0m\] "
+
+# two line prompt with date, time, full working directory and command number
 #export PS1="\[\e[0;36m\][\d]\u (\w)\n[\A:\#]\$ \[\e[0m\]"
-export PS1="\[\e[0;36m\][\D{%F} \A] (\w)\n\u (\#)\$ \[\e[0m\]"
+
+# two line prompt with ISO8601 date, time, full working directory and command number
+#export PS1="\[\e[0;36m\][\D{%F} \A] (\w)\n\u (\#)\$ \[\e[0m\]"
+
+# using tput
+export PS1="\[$(tput setaf 6)\][\D{%F} \A] \
+$(tput bold)\w\n\
+\u (\#)\$ \[$(tput sgr0)\]"
 
 # user variables
 dotfiles_dir=~/git/dotfiles
