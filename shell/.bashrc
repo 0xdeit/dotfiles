@@ -25,6 +25,17 @@ alias sys-upd="sudo dnf check-update"
 alias sys-inf="sudo dnf info"
 alias sys-rem="sudo dnf remove"
 
+# general usage
+# create directory and cd into it
+function md(){
+    mkdir $1 && cd $1;
+}
+
+# create a directory, cd into it and initialize it as a git repo
+function gmd(){
+    mkdir $1 && cd $1 && git init;
+}
+
 # $EDITORS
 alias vim="nvim"
 alias v="nvim"
