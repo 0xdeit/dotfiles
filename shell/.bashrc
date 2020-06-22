@@ -13,8 +13,10 @@ fi
 export PATH
 
 # User specific aliases and functions
-PS1_Fallback="$PS1"
-export PS1="\e[0;36m[\u@\h \W]\$\e[m "
+# colored prompt
+#export PS1="\e\[0;36m\][\u \W]\$\e\[0m\] "
+#export PS1="\[\e[0;36m\][\d]\u (\w)\n[\A:\#]\$ \[\e[0m\]"
+export PS1="\[\e[0;36m\][\D{%F} \A] (\w)\n\u (\#)\$ \[\e[0m\]"
 
 # user variables
 dotfiles_dir=~/git/dotfiles
