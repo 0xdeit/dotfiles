@@ -99,6 +99,9 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 " Conquer Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Rust
+Plug 'rust-lang/rust.vim'
+Plug 'vim-syntastic/syntastic'
 " kewl Status line
 Plug 'itchyny/lightline.vim'
 " undos
@@ -135,7 +138,7 @@ set noshowmode
 
 
 let g:lightline = {
-\ 'colorscheme': 'wombat',
+\ 'colorscheme': 'powerline',
 \ 'active': {
 \   'left': [ [ 'mode', 'paste' ],
 \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -250,4 +253,13 @@ nnoremap <leader>cr :CocRestart
 
 " fugitive 
 nmap <leader>gs :G<CR>
+
+" Plugin: Syntastic
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Plugin: rust.vim
+let g:rustfmt_autosave = 1
 
