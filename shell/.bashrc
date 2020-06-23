@@ -1,5 +1,8 @@
 # .bashrc
 
+# ubuntu does not load .bashrc by default? flag workaround
+loaded_bashrc=1
+
 # Source global definitions
 if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
@@ -37,12 +40,51 @@ $(tput bold)\w\n\
 dotfiles_dir=~/git/dotfiles
 
 # systems package manager aliases
-alias sys-sch="sudo dnf search"
-alias sys-ins="sudo dnf install"
-alias sys-upg="sudo dnf upgrade"
-alias sys-upd="sudo dnf check-update"
-alias sys-inf="sudo dnf info"
-alias sys-rem="sudo dnf remove"
+
+distro=$(lsb_release -i -s)
+
+function sch(){
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt-cache search $1 ;;
+        'Fedora') sudo dnf search $1 ;;
+    esac
+}
+
+function ins(){
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt install $1 ;;
+        'Fedora') sudo dnf install $1 ;;
+    esac
+}
+
+function upg(){
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt upgrade ;;
+        'Fedora') sudo dnf upgrade ;;
+    esac
+}
+
+function upd(){
+    echo "Running system update on $distro"
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt update ;;
+        'Fedora') sudo dnf checkupdate ;;
+    esac
+}
+
+function inf(){
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt-cache show $1 ;;
+        'Fedora') sudo dnf info $1 ;;
+    esac
+}
+
+function rem(){
+    case $distro in
+        'Ubuntu'|'Debian') sudo apt remove $1 ;;
+        'Fedora') sudo dnf remove $1 ;;
+    esac
+}
 
 # general usage
 # create directory and cd into it
