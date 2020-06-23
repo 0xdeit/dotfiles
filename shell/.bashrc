@@ -169,8 +169,9 @@ function gcp(){
     git commit -m $1 && git push;
 }
 
-alias gpsh="git push"
-alias gpll="git pull"
+alias gp="git push"
+alias gg="git pull"
+alias gcl="git clone"
 alias gs="git status"
 alias gd="git diff HEAD"
 
