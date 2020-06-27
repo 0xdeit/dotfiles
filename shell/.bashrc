@@ -98,10 +98,10 @@ function gmd(){
 }
 
 # goto dev directory
-alias devd="cd ~/dev"
+alias devd="cd ~/dev && ls"
 
 # goto git directory
-alias gitd="cd ~/git"
+alias gitd="cd ~/git && ls"
 
 # $EDITORS
 alias vim="nvim"
