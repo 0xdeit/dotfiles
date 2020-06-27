@@ -145,7 +145,7 @@ alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml && update_alacrittyc"
 alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css && update_waybarc"
 
 function dotfiles(){
-    cd $dotfiles_dir && git status $dotfiles_dir;
+    cd $dotfiles_dir && git pull && git status $dotfiles_dir;
 }
 
 function dotfiles_update(){
