@@ -149,9 +149,13 @@ function dotfiles(){
 }
 
 function dotfiles_update(){
-    echo $dotfiles_dir;
+    echo "Current configured dotfiles repo $dotfiles_dir \nUpdating local configurations to repo...";
+    # TODO: Only try to update configuration if the program is installed.
     update_bashrc && update_swayc && update_vimrc && update_waybarc;
-    git status $dotfiles_dir;
+    cd $dotfiles_dir;
+    # TODO: Only show status of master branch?
+    git status;
+    cd -;
 }
 
 # git
