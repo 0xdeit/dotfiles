@@ -52,8 +52,8 @@ function sch(){
 
 function ins(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt install $1 ;;
-        'Fedora') sudo dnf install $1 ;;
+        'Ubuntu'|'Debian') sudo apt install $@ ;;
+        'Fedora') sudo dnf install $@ ;;
     esac
 }
 
@@ -96,6 +96,12 @@ function md(){
 function gmd(){
     mkdir $1 && cd $1 && git init;
 }
+
+# goto dev directory
+alias devd="cd ~/dev"
+
+# goto git directory
+alias gitd="cd ~/git"
 
 # $EDITORS
 alias vim="nvim"
