@@ -8,5 +8,5 @@ Tools used:
 * bash
      
 ## TODO:
-* Write Setup Script to recreate dev environment
-* Write Setup to synchronize all the configs in the repo
+- [ ] Write Setup Script to recreate dev environment
+- [ ] Write Setup to synchronize all the configs in the repo
