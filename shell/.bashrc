@@ -68,7 +68,7 @@ function upd(){
     echo "Running system update on $distro"
     case $distro in
         'Ubuntu'|'Debian') sudo apt update ;;
-        'Fedora') sudo dnf checkupdate ;;
+        'Fedora') sudo dnf check-update ;;
     esac
 }
 
