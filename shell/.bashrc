@@ -59,8 +59,8 @@ function ins(){
 
 function upg(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt upgrade ;;
-        'Fedora') sudo dnf upgrade ;;
+        'Ubuntu'|'Debian') sudo apt upgrade -y;;
+        'Fedora') sudo dnf upgrade -y;;
     esac
 }
 
