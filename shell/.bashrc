@@ -8,6 +8,15 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Add git info to bash
+if [ -f ~/.config/git-prompt.sh ]; then
+	. ~/.config/git-prompt.sh
+fi
+
+if [ -f ~/.config/git-completion.bash ]; then
+	. ~/.config/git-completion.bash
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
@@ -25,9 +34,9 @@ export PATH
 # standard prompt, but colored
 #export PS1="\e\[0;36m\][\u \W]\$\e\[0m\] "
 # using tput
-export PS1="\[$(tput setaf 6)\][\D{%F} \A] \
-$(tput bold)\w\n\
-$(tput bold)\u (\#)\$ \[$(tput sgr0)\]"
+# export PS1='\[\e[0;36m\][\D{%F} \A] \w $(__git_ps1 "(%s)")\n\u (\#)\$:'
+export PS1='\[\e[0;36m\][\D{%F} \A] \u@\h \w (\#)\[\e[m\]\n\
+\[\e[1;35m\]$(__git_ps1 "(%s)")\[\e[m\]\$: '
 
 # user variables
 dotfiles_dir=~/git/dotfiles
