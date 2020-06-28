@@ -38,8 +38,8 @@ distro=$(lsb_release -i -s)
 
 function sch(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt-cache search $1 ;;
-        'Fedora') sudo dnf search $1 ;;
+        'Ubuntu'|'Debian') apt-cache search $1 ;;
+        'Fedora') dnf search $1 ;;
     esac
 }
 
@@ -67,8 +67,8 @@ function upd(){
 
 function inf(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt-cache show $1 ;;
-        'Fedora') sudo dnf info $1 ;;
+        'Ubuntu'|'Debian') apt-cache show $1 ;;
+        'Fedora') dnf info $1 ;;
     esac
 }
 
