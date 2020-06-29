@@ -102,6 +102,14 @@ function gmd(){
 # goto dev directory
 alias devd="cd ~/dev && ls"
 
+function devp(){
+    if [ -d $1 ]; then
+        cd $1;
+    else
+        mkdir -p ~/dev/$1 && cd ~/dev/$1;
+    fi
+}
+
 # goto git directory
 alias gitd="cd ~/git && ls"
 
