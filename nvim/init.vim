@@ -99,6 +99,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
 " Conquer Completion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'honza/vim-snippets' " snippets used with coc-snippets
 " Rust
 Plug 'rust-lang/rust.vim'
 Plug 'vim-syntastic/syntastic'
@@ -250,6 +251,12 @@ nmap <leader>g] <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
+
+" coc-snippets
+imap <C-l> <Plug>(coc-snippets-expand)
+let g:coc_snippet_next = '<c-j>'
+
+imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " fugitive 
 nmap <leader>gs :G<CR>
