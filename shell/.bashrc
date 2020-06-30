@@ -8,6 +8,15 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Add git info to bash
+if [ -f ~/.config/git-prompt.sh ]; then
+	. ~/.config/git-prompt.sh
+fi
+
+if [ -f ~/.config/git-completion.bash ]; then
+	. ~/.config/git-completion.bash
+fi
+
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
 then
@@ -24,17 +33,10 @@ export PATH
 
 # standard prompt, but colored
 #export PS1="\e\[0;36m\][\u \W]\$\e\[0m\] "
-
-# two line prompt with date, time, full working directory and command number
-#export PS1="\[\e[0;36m\][\d]\u (\w)\n[\A:\#]\$ \[\e[0m\]"
-
-# two line prompt with ISO8601 date, time, full working directory and command number
-#export PS1="\[\e[0;36m\][\D{%F} \A] (\w)\n\u (\#)\$ \[\e[0m\]"
-
 # using tput
-export PS1="\[$(tput setaf 6)\][\D{%F} \A] \
-$(tput bold)\w\n\
-\u (\#)\$ \[$(tput sgr0)\]"
+# export PS1='\[\e[0;36m\][\D{%F} \A] \w $(__git_ps1 "(%s)")\n\u (\#)\$:'
+export PS1='\[\e[0;36m\][\D{%F} \A] \u@\h \w (\#)\[\e[m\]\n\
+\[\e[1;35m\]$(__git_ps1 "(%s)")\[\e[m\]\$: '
 
 # user variables
 dotfiles_dir=~/git/dotfiles
@@ -45,22 +47,22 @@ distro=$(lsb_release -i -s)
 
 function sch(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt-cache search $1 ;;
-        'Fedora') sudo dnf search $1 ;;
+        'Ubuntu'|'Debian') apt-cache search $1 ;;
+        'Fedora') dnf search $1 ;;
     esac
 }
 
 function ins(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt install $1 ;;
-        'Fedora') sudo dnf install $1 ;;
+        'Ubuntu'|'Debian') sudo apt install $@ ;;
+        'Fedora') sudo dnf install $@ ;;
     esac
 }
 
 function upg(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt upgrade ;;
-        'Fedora') sudo dnf upgrade ;;
+        'Ubuntu'|'Debian') sudo apt upgrade -y;;
+        'Fedora') sudo dnf upgrade -y;;
     esac
 }
 
@@ -68,14 +70,14 @@ function upd(){
     echo "Running system update on $distro"
     case $distro in
         'Ubuntu'|'Debian') sudo apt update ;;
-        'Fedora') sudo dnf checkupdate ;;
+        'Fedora') sudo dnf check-update ;;
     esac
 }
 
 function inf(){
     case $distro in
-        'Ubuntu'|'Debian') sudo apt-cache show $1 ;;
-        'Fedora') sudo dnf info $1 ;;
+        'Ubuntu'|'Debian') apt-cache show $1 ;;
+        'Fedora') dnf info $1 ;;
     esac
 }
 
@@ -97,14 +99,21 @@ function gmd(){
     mkdir $1 && cd $1 && git init;
 }
 
+# goto dev directory
+alias devd="cd ~/dev && ls"
+
+# goto git directory
+alias gitd="cd ~/git && ls"
+
 # $EDITORS
 alias vim="nvim"
 alias v="nvim"
+alias vd="nvim ~/dev"
 
 # Configs
 function bashup(){
-    echo "Updating bashrc...";
-    source ~/.bashrc && echo "Done.";
+    printf "Updating bashrc...";
+    source ~/.bashrc && printf "Done.\n";
 }
 
 function send_to_dotfiles_scm(){
@@ -145,16 +154,21 @@ alias alacrittyc="nvim ~/.config/alacritty/alacritty.yml && update_alacrittyc"
 alias waybarc="nvim -p ~/.config/waybar/config ~/.config/waybar/style.css && update_waybarc"
 
 function dotfiles(){
-    cd $dotfiles_dir && git status $dotfiles_dir;
+    cd $dotfiles_dir && git pull && git status $dotfiles_dir;
 }
 
 function dotfiles_update(){
-    echo $dotfiles_dir;
+    printf "Current configured dotfiles repo $dotfiles_dir \nUpdating local configurations to repo...\n";
+    # TODO: Only try to update configuration if the program is installed.
     update_bashrc && update_swayc && update_vimrc && update_waybarc;
-    git status $dotfiles_dir;
+    cd $dotfiles_dir;
+    # TODO: Only show status of master branch?
+    git status;
+    cd -;
 }
 
 # git
+alias g="git"
 alias ga="git add"
 alias gaa="git add *"
 
@@ -162,9 +176,9 @@ function gac(){
     git add $1 && git commit -m "$2";
 }
 
-alias gr="git rm"
-alias gc="git commit -m"
-
+alias grm="git rm"
+alias gc="git commit"
+alias gcm="git commit -m"
 function gcp(){
     git commit -m $1 && git push;
 }
@@ -174,5 +188,7 @@ alias gg="git pull"
 alias gcl="git clone"
 alias gs="git status"
 alias gd="git diff HEAD"
+alias gch="git checkout"
+alias gcb="git checkout -b"
 
 source ~/.profile
