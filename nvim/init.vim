@@ -56,8 +56,8 @@ set clipboard+=unnamedplus
 " Incremental search
 set incsearch
 
-" highlight 80th column
-set colorcolumn=80
+" highlight 100th column
+set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 " dont highlight results of search
