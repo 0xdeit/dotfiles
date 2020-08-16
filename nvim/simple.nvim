@@ -1,0 +1,26 @@
+" infra
+set number
+set nocompatible
+set mouse=a
+set noerrorbells
+set clipboard+=unnamedplus
+set hidden
+set noswapfile
+set nobackup
+set undodir=
+set undofile
+set path+=**
+set wildmenu
+set nowrap
+
+"syntax
+syntax enable
+filetype plugin on
+
+"tabs
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set smartindent
+set scrolloff=5
+set sidescrolloff=5
