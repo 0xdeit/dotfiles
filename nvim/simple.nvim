@@ -1,3 +1,4 @@
+" Simple Gallo Config
 " infra
 set number
 set nocompatible
@@ -7,20 +8,60 @@ set clipboard+=unnamedplus
 set hidden
 set noswapfile
 set nobackup
-set undodir=
+set undodir=~/.config/nvim/undodir
 set undofile
 set path+=**
 set wildmenu
-set nowrap
+let mapleader=" "
+set splitright
+set splitbelow
 
-"syntax
+" syntax
 syntax enable
 filetype plugin on
 
-"tabs
+" tabs
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+"set expandtab
 set smartindent
 set scrolloff=5
 set sidescrolloff=5
+
+" Plugins
+call plug#begin('~\AppData\Local\nvim\plugged')
+Plug 'tpope/vim-commentary'
+Plug 'itchyny/lightline.vim'
+Plug 'morhetz/gruvbox'
+call plug#end()
+
+" themes
+if has('nvim') || has('termguicolors')
+	set termguicolors
+endif
+
+colorscheme gruvbox
+set background=dark
+set cursorline
+set colorcolumn=100
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+" mappings
+nnoremap <leader>h :wincmd h<CR>
+nnoremap <leader>j :wincmd j<CR>
+nnoremap <leader>k :wincmd k<CR>
+nnoremap <leader>l :wincmd l<CR>
+nnoremap <leader>r :wincmd r<CR>
+
+nnoremap <leader><TAB> :tabnext<CR>
+nnoremap <leader><S-TAB> :tabprevious<CR>
+nnoremap <leader>1 :tabfirst<CR>
+
+nnoremap <leader>n :bnext<CR>
+nnoremap <leader>p :bprevious<CR>
+
+nnoremap <leader>vp :vsplit<SPACE>
+nnoremap <leader>sp :split<SPACE>
+
+nnoremap <leader>ec :tabnew ~\AppData\Local\nvim\init.vim<CR>
