@@ -15,6 +15,7 @@ set wildmenu
 let mapleader=" "
 set splitright
 set splitbelow
+set nowrap
 
 " syntax
 syntax enable
@@ -29,20 +30,14 @@ set smartindent
 set scrolloff=5
 set sidescrolloff=5
 
-" Plugins
-call plug#begin('~\AppData\Local\nvim\plugged')
-Plug 'tpope/vim-commentary'
-Plug 'itchyny/lightline.vim'
-Plug 'morhetz/gruvbox'
-call plug#end()
+source ~\AppData\Local\nvim\plugins.vim
+source ~\AppData\Local\nvim\colors.vim
 
 " themes
 if has('nvim') || has('termguicolors')
 	set termguicolors
 endif
 
-colorscheme gruvbox
-set background=dark
 set cursorline
 set colorcolumn=100
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -64,4 +59,34 @@ nnoremap <leader>p :bprevious<CR>
 nnoremap <leader>vp :vsplit<SPACE>
 nnoremap <leader>sp :split<SPACE>
 
-nnoremap <leader>ec :tabnew ~\AppData\Local\nvim\init.vim<CR>
+function EditConfig()
+	:tabnew ~\AppData\Local\nvim\init.vim
+	:vsplit ~\AppData\Local\nvim\plugins.vim
+	:split ~\AppData\Local\nvim\colors.vim
+	:wincmd h
+endfunction
+
+nnoremap <leader>ec :execute EditConfig()<CR>
+nnoremap <leader>cs :source ~\AppData\Local\nvim\init.vim<CR>
+
+nnoremap <leader>tn :tabnew<CR>
+nnoremap <leader>tf :tabnew 
+nnoremap <leader>tc :tabclose<CR>
+
+nnoremap <leader>tvp :vsplit term://powershell<CR>
+nnoremap <leader>tsp :split term://powershell<CR>
+
+nnoremap <leader>w :write<CR>
+
+nnoremap <leader>yf :%y"+<CR>
+
+nnoremap <leader>q :quit<CR>
+
+tnoremap <Esc> <C-\><C-n>
+
+tnoremap <leader>h <C-\><C-n>:wincmd h<CR>
+tnoremap <leader>j <C-\><C-n>:wincmd j<CR>
+tnoremap <leader>k <C-\><C-n>:wincmd k<CR>
+tnoremap <leader>l <C-\><C-n>:wincmd l<CR>
+tnoremap <leader>q <C-\><C-n>:quit<CR>
+
